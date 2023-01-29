@@ -17,6 +17,19 @@ function createGrid(horizontal, vertical) {
     hValue = Number(horizontal.value);
     vValue = Number(vertical.value);
 
+    if (vValue < 1) {
+        vValue = 1;
+    } else if (vValue > 100) {
+        vValue = 100;
+    }
+
+    if (hValue < 1) {
+        hValue = 1;
+    } else if (hValue > 100) {
+        hValue = 100;
+    }
+
+
     for (let i = 0; i < (hValue * vValue); i++) {
         const pixel = document.createElement("div");
         pixel.classList.add("pixel");
