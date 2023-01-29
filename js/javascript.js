@@ -29,13 +29,17 @@ function createGrid(horizontal, vertical) {
         hValue = 100;
     }
 
-
     for (let i = 0; i < (hValue * vValue); i++) {
         const pixel = document.createElement("div");
         pixel.classList.add("pixel");
         pixel.classList.add("white");
         pixel.style.height = (100 / vValue) + "%";
         pixel.style.width = (100 / hValue) + "%";
+
+        pixel.addEventListener("mouseenter", () => {
+            pixel.classList.add("black");
+        })
+
         grid.appendChild(pixel);
     }
 }
