@@ -6,6 +6,10 @@ body, html {
     box-sizing: border-box;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 body {
     height: 100vh;
     display: flex;
