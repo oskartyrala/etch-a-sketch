@@ -2,7 +2,7 @@ const grid = document.querySelector(".grid");
 const inputs = document.querySelectorAll("input");
 const horizontal = document.querySelector(".horizontal");
 const vertical = document.querySelector(".vertical");
-const reset = document.querySelector(".reset");
+const wipe = document.querySelector(".wipe");
 
 createGrid(horizontal, vertical);
 
@@ -45,6 +45,6 @@ function createGrid(horizontal, vertical) {
     }
 }
 
-reset.addEventListener("click", () => {
+wipe.addEventListener("click", () => {
     createGrid(horizontal, vertical);
 })
