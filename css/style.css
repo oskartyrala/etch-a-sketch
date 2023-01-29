@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
 body, html {
     margin: 0;
     padding: 0;
@@ -9,16 +11,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #EBEBEB;
+    color: #EBEBEB;
 }
 
 .pad {
     display: flex;
     align-items: stretch;
-
+    background-color: #312f2f;
     height: 750px;
     width: 900px;
     border-radius: 35px;
-    border: 1px solid red;
 }
 
 .middle {
@@ -38,8 +41,13 @@ body {
 }
 
 input {
+    background-color: #EBEBEB;
+    border: none;
     width: 45px;
     height: 25px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
 }
 
 .bottom {
@@ -49,17 +57,21 @@ input {
     align-items: center;
 }
 
-.reset {
+button {
+    background-color: #EBEBEB;
     width: 120px;
-    height: 30px;
-    border-radius: 15px;;
+    height: 36px;
+    border: none;
+    border-radius: 18px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
 }
 
 .grid {
     width: 600px;
     height: 600px;
     border-radius: 10px;
-    border: 1px solid red;
+    background-color: white;
 }
 
 .side {
@@ -83,12 +95,51 @@ input {
     height: 40px;
     width: 40px;
     border-radius: 50%;
-    border: 1px solid red;
+}
+
+.white {
+    background-color: #FFFFFF;
+}
+
+.gray {
+    background-color: #555B6E;
+}
+
+.black {
+    background-color: #000000;
+}
+
+.purple {
+    background-color: #514663;
+}
+
+.indigo {
+    background-color: #3D405B;
+}
+
+.blue {
+    background-color: #658E9C;
+}
+
+.green {
+    background-color: #8CBA80;
+}
+
+.yellow {
+    background-color: #FFF9A5;
+}
+
+.orange {
+    background-color: #F5853F;
+}
+
+.red {
+    background-color: #C33149;
 }
 
 .slider {
     height: 535px;
     width: 40px;
     border-radius: 50px;
-    border: 1px solid red;
+    background-image: linear-gradient(#000000, #FFFFFF);
 }
