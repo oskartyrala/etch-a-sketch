@@ -2,6 +2,7 @@ const grid = document.querySelector(".grid");
 const inputs = document.querySelectorAll("input");
 const horizontal = document.querySelector(".horizontal");
 const vertical = document.querySelector(".vertical");
+const reset = document.querySelector(".reset");
 
 createGrid(horizontal, vertical);
 
@@ -43,3 +44,7 @@ function createGrid(horizontal, vertical) {
         grid.appendChild(pixel);
     }
 }
+
+reset.addEventListener("click", () => {
+    createGrid(horizontal, vertical);
+})
