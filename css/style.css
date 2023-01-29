@@ -1,0 +1,94 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pad {
+    display: flex;
+    align-items: stretch;
+
+    height: 750px;
+    width: 900px;
+    border-radius: 35px;
+    border: 1px solid red;
+}
+
+.middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;;
+    width: 600px;
+}
+
+.top {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+input {
+    width: 45px;
+    height: 25px;
+}
+
+.bottom {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reset {
+    width: 120px;
+    height: 30px;
+    border-radius: 15px;;
+}
+
+.grid {
+    width: 600px;
+    height: 600px;
+    border-radius: 10px;
+    border: 1px solid red;
+}
+
+.side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.colors {
+    border-radius: 35px 0 0 35px;
+}
+
+.opacity {
+    border-radius: 0 35px 35px 0;
+}
+
+.color {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 1px solid red;
+}
+
+.slider {
+    height: 535px;
+    width: 40px;
+    border-radius: 50px;
+    border: 1px solid red;
+}
