@@ -3,7 +3,19 @@ const inputs = document.querySelectorAll("input");
 const horizontal = document.querySelector(".horizontal");
 const vertical = document.querySelector(".vertical");
 const wipe = document.querySelector(".wipe");
+const colors = document.querySelectorAll(".color");
 
+// Determines the current "brush" color
+let currentColor = "black";
+
+for (color of colors) {
+    color.addEventListener("click", (e) => {
+        console.log(e.target.classList);
+        currentColor = e.target.classList[1];
+    })
+}
+
+// Creates the grid based on input
 createGrid(horizontal, vertical);
 
 for (input of inputs) {
@@ -38,13 +50,15 @@ function createGrid(horizontal, vertical) {
         pixel.style.width = (100 / hValue) + "%";
 
         pixel.addEventListener("mouseenter", () => {
-            pixel.classList.add("black");
+            pixel.classList.remove("white", "gray", "black", "purple", "indigo", "blue", "green", "yellow", "orange", "red");
+            pixel.classList.add(`${currentColor}`);
         })
 
         grid.appendChild(pixel);
     }
 }
 
+// Wipes the board
 wipe.addEventListener("click", () => {
     createGrid(horizontal, vertical);
 })

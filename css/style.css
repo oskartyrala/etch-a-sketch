@@ -57,7 +57,7 @@ input {
     align-items: center;
 }
 
-button {
+.wipe {
     background-color: #EBEBEB;
     width: 120px;
     height: 36px;
@@ -80,7 +80,7 @@ button {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 22px;
     flex: 1;
 }
 
@@ -96,6 +96,7 @@ button {
     height: 40px;
     width: 40px;
     border-radius: 50%;
+    border: none;
 }
 
 .white {
