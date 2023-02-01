@@ -49,10 +49,22 @@ function createGrid(horizontal, vertical) {
         pixel.style.height = (100 / vValue) + "%";
         pixel.style.width = (100 / hValue) + "%";
 
-        pixel.addEventListener("mouseenter", () => {
-            pixel.classList.remove("white", "gray", "black", "purple", "indigo", "blue", "green", "yellow", "orange", "red");
-            pixel.classList.add(`${currentColor}`);
+        pixel.addEventListener("mousedown", (e) => {
+            colorPixel(e);
         })
+
+        pixel.addEventListener("mouseenter", (e) => {
+            colorPixel(e);
+        })
+
+        // Changes the background color of a pixel
+        function colorPixel(e) {
+            if (e.buttons === 1) {
+                e.preventDefault();
+                pixel.classList.remove("white", "gray", "black", "purple", "indigo", "blue", "green", "yellow", "orange", "red");
+                pixel.classList.add(`${currentColor}`);
+            }
+        }
 
         grid.appendChild(pixel);
     }
