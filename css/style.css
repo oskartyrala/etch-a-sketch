@@ -26,7 +26,8 @@ body {
     height: 750px;
     width: 900px;
     border-radius: 35px;
-    box-shadow: inset 4px 4px 7px #ffffff77, inset -4px -4px 7px #00000077;
+    box-shadow: inset 4px 4px 7px #ffffff77, inset -4px -4px 7px #00000077,
+    10px 15px 30px #00000077;
 }
 
 .middle {
@@ -161,4 +162,42 @@ input {
     flex: auto;
     padding: 0;
     margin: 0;
+}
+
+.handle {
+    display: flex;
+    align-items: center;
+    width: 100px;
+    height: 500px;
+    background-color: #312f2f;
+}
+
+.left {
+    justify-content: flex-end;
+    border-radius: 70px 0 0 70px;
+    box-shadow: inset 4px 4px 7px #ffffff77, inset -4px -4px 7px #00000077, 10px 15px 30px #00000077;
+}
+
+.right {
+    justify-content: flex-start;
+    border-radius: 0 70px 70px 0;
+    box-shadow: inset -4px -4px 7px #00000077, 10px 15px 30px #00000077;
+}
+
+.empty-left {
+    background-color: #EBEBEB;
+    width: 50px;
+    height: 400px;
+    border-radius: 20px 0 0 20px;
+    box-shadow: -4px -4px 7px #00000077, 4px 4px 7px #ffffff77,
+    inset 10px 15px 30px #00000077;
+}
+
+.empty-right {
+    background-color: #EBEBEB;
+    width: 50px;
+    height: 400px;
+    border-radius: 0 20px 20px 0;
+    box-shadow: -4px -4px 7px #00000077, 4px 4px 7px #ffffff77, 
+    inset 10px 15px 30px #00000077;
 }
