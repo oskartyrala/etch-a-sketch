@@ -10,7 +10,6 @@ let currentColor = "black";
 
 for (color of colors) {
     color.addEventListener("click", (e) => {
-        console.log(e.target.classList);
         currentColor = e.target.classList[1];
     })
 }
