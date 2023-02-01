@@ -26,6 +26,7 @@ body {
     height: 750px;
     width: 900px;
     border-radius: 35px;
+    box-shadow: inset 4px 4px 7px #ffffff77, inset -4px -4px 7px #00000077;
 }
 
 .middle {
@@ -52,6 +53,7 @@ input {
     text-align: center;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
+    box-shadow: inset 1px 1px 3px #00000077, inset -1px -1px 3px #ffffff77;
 }
 
 .bottom {
@@ -69,6 +71,7 @@ input {
     border-radius: 18px;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
+    box-shadow: inset 2px 2px 3px #ffffff77, inset -2px -2px 3px #00000077;
 }
 
 .grid {
@@ -101,6 +104,7 @@ input {
     width: 40px;
     border-radius: 50%;
     border: none;
+    box-shadow: inset 2px 2px 4px #ffffff77, inset -2px -2px 4px #00000077;
 }
 
 .white {
@@ -148,6 +152,7 @@ input {
     width: 40px;
     border-radius: 50px;
     background-image: linear-gradient(#000000, #FFFFFF);
+    box-shadow: inset 1px 1px 3px #00000077;
 }
 
 .pixel {
