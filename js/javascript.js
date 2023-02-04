@@ -10,7 +10,7 @@ const pickerContainer = document.querySelector(".picker-container");
 let currentColor = "#000000";
 
 // Updates the current "brush" color
-picker.addEventListener("input", (e) => {
+picker.addEventListener("input", () => {
     pickerContainer.style.backgroundColor = picker.value;
     currentColor = picker.value;
 })
