@@ -6,7 +6,8 @@ body, html {
     box-sizing: border-box;
 }
 
-button:hover {
+button:hover,
+.picker:hover {
     cursor: pointer;
 }
 
@@ -46,7 +47,7 @@ body {
     gap: 8px;
 }
 
-input {
+.top > input {
     background-color: #EBEBEB;
     border: none;
     width: 45px;
@@ -93,60 +94,23 @@ input {
     flex: 1;
 }
 
-.colors {
-    border-radius: 35px 0 0 35px;
-}
-
-.opacity {
-    border-radius: 0 35px 35px 0;
-}
-
-.color {
-    height: 40px;
-    width: 40px;
+.picker-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #000000;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    border: none;
     box-shadow: inset 2px 2px 4px #ffffff77, inset -2px -2px 4px #00000077;
 }
 
-.white {
-    background-color: #FFFFFF;
-}
-
-.gray {
-    background-color: #555B6E;
-}
-
-.black {
-    background-color: #000000;
-}
-
-.purple {
-    background-color: #514663;
-}
-
-.indigo {
-    background-color: #3D405B;
-}
-
-.blue {
-    background-color: #658E9C;
-}
-
-.green {
-    background-color: #8CBA80;
-}
-
-.yellow {
-    background-color: #FFF9A5;
-}
-
-.orange {
-    background-color: #F5853F;
-}
-
-.red {
-    background-color: #C33149;
+.picker {
+	opacity: 0;
+    width: 60px;
+    height: 60px;
+	border: none;
 }
 
 .slider {
@@ -163,6 +127,7 @@ input {
     flex: auto;
     padding: 0;
     margin: 0;
+    background-color: #ffffff;
 }
 
 .handle {

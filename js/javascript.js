@@ -1,18 +1,19 @@
 const grid = document.querySelector(".grid");
-const inputs = document.querySelectorAll("input");
+const inputs = document.querySelectorAll(".top > input");
 const horizontal = document.querySelector(".horizontal");
 const vertical = document.querySelector(".vertical");
 const wipe = document.querySelector(".wipe");
-const colors = document.querySelectorAll(".color");
+const picker = document.querySelector(".picker");
+const pickerContainer = document.querySelector(".picker-container");
 
 // Determines the current "brush" color
-let currentColor = "black";
+let currentColor = "#000000";
 
-for (color of colors) {
-    color.addEventListener("click", (e) => {
-        currentColor = e.target.classList[1];
-    })
-}
+// Updates the current "brush" color
+picker.addEventListener("input", (e) => {
+    pickerContainer.style.backgroundColor = picker.value;
+    currentColor = picker.value;
+})
 
 // Creates the grid based on input
 createGrid(horizontal, vertical);
@@ -60,8 +61,7 @@ function createGrid(horizontal, vertical) {
         function colorPixel(e) {
             if (e.buttons === 1) {
                 e.preventDefault();
-                pixel.classList.remove("white", "gray", "black", "purple", "indigo", "blue", "green", "yellow", "orange", "red");
-                pixel.classList.add(`${currentColor}`);
+                pixel.style.backgroundColor = currentColor;
             }
         }
 
