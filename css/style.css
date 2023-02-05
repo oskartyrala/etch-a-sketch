@@ -95,14 +95,20 @@ body {
 }
 
 .mode {
+    box-sizing: border-box;
     width: 50px;
     height: 50px;
     border-radius: 50%;
     box-shadow: inset 2px 2px 4px #ffffff77, inset -2px -2px 4px #00000077;
     border: none;
+    padding: 0;
 }
 
-.picker-container {
+.selected {
+    border: 3px solid #f7f7f9;
+}
+
+.pick {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -118,7 +124,7 @@ body {
 }
 
 .icon {
-    height: 60%;
+    height: 25px;
     filter: drop-shadow(1px 1px 2px black);
 }
 

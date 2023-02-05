@@ -4,9 +4,10 @@ const horizontal = document.querySelector(".horizontal");
 const vertical = document.querySelector(".vertical");
 const wipe = document.querySelector(".wipe");
 const picker = document.querySelector(".picker");
-const pickerContainer = document.querySelector(".picker-container");
+const modes = document.querySelectorAll(".mode");
+const pickerContainer = document.querySelector(".pick");
 const rainbow = document.querySelector(".rainbow");
-const eraser = document.querySelector(".eraser");
+const erase = document.querySelector(".erase");
 
 // Determines the current mode and "brush" color
 let currentColor = "#000000";
@@ -24,7 +25,7 @@ function pickColor() {
 }
 
 // Changes mode to erase and changes the color to white;
-eraser.addEventListener("click", () => {
+erase.addEventListener("click", () => {
     currentMode = "erase";
     currentColor = "#ffffff";
 })
@@ -33,6 +34,20 @@ eraser.addEventListener("click", () => {
 rainbow.addEventListener("click", () => {
     currentMode = "rainbow";
 })
+
+for (mode of modes) {
+    mode.addEventListener("click", (e) => {
+        markSelected(e);
+    })
+}
+
+function markSelected(e) {
+    for (mode of modes) {
+        mode.classList.remove("selected");
+    }
+    e.currentTarget.classList.add("selected");
+}
+
 
 // Creates the grid based on input
 createGrid(horizontal, vertical);
