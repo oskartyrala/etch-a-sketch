@@ -5,14 +5,22 @@ const vertical = document.querySelector(".vertical");
 const wipe = document.querySelector(".wipe");
 const picker = document.querySelector(".picker");
 const pickerContainer = document.querySelector(".picker-container");
+const rainbow = document.querySelector(".rainbow");
 
-// Determines the current "brush" color
+// Determines the current mode and "brush" color
 let currentColor = "#000000";
+let currentMode = "standard"
 
-// Updates the current "brush" color
+// Changes mode to standard and updates the current "brush" color
 picker.addEventListener("input", () => {
     pickerContainer.style.backgroundColor = picker.value;
+    currentMode = "standard";
     currentColor = picker.value;
+})
+
+// Changes mode to rainbow
+rainbow.addEventListener("click", () => {
+    currentMode = "rainbow";
 })
 
 // Creates the grid based on input
@@ -57,8 +65,15 @@ function createGrid(horizontal, vertical) {
             colorPixel(e);
         })
 
-        // Changes the background color of a pixel
+        // Changes the background color of a pixel. If current mode is rainbow,
+        // randomize the color first.
         function colorPixel(e) {
+
+            if (currentMode === "rainbow") {
+                currentColor = `rgb(${getRGBValue()}, ${getRGBValue()}, 
+                ${getRGBValue()})`;
+            }
+
             if (e.buttons === 1) {
                 e.preventDefault();
                 pixel.style.backgroundColor = currentColor;
@@ -67,6 +82,11 @@ function createGrid(horizontal, vertical) {
 
         grid.appendChild(pixel);
     }
+}
+
+// Gets a random number to feed into random color in rainbow mode
+function getRGBValue() {
+    return Math.floor(Math.random() * 255) + 1;
 }
 
 // Wipes the board

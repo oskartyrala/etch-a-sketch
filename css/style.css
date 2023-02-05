@@ -94,16 +94,20 @@ body {
     flex: 1;
 }
 
+.mode {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: inset 2px 2px 4px #ffffff77, inset -2px -2px 4px #00000077;
+    border: none;
+}
+
 .picker-container {
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     background-color: #000000;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    box-shadow: inset 2px 2px 4px #ffffff77, inset -2px -2px 4px #00000077;
 }
 
 .picker {
@@ -111,6 +115,10 @@ body {
     width: 60px;
     height: 60px;
 	border: none;
+}
+
+.rainbow {
+    background-image: linear-gradient(to bottom right, #FF0000, #FF7F00, #FFFF00, #00FF00, #1555E3, #2E2B5F, #8B00FF);
 }
 
 .slider {
