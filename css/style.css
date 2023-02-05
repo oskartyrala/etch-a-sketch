@@ -117,6 +117,11 @@ body {
 	border: none;
 }
 
+.icon {
+    height: 60%;
+    filter: drop-shadow(1px 1px 2px black);
+}
+
 .rainbow {
     background-image: linear-gradient(to bottom right, #FF0000, #FF7F00, #FFFF00, #00FF00, #1555E3, #2E2B5F, #8B00FF);
 }

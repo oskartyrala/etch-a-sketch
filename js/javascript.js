@@ -6,6 +6,7 @@ const wipe = document.querySelector(".wipe");
 const picker = document.querySelector(".picker");
 const pickerContainer = document.querySelector(".picker-container");
 const rainbow = document.querySelector(".rainbow");
+const eraser = document.querySelector(".eraser");
 
 // Determines the current mode and "brush" color
 let currentColor = "#000000";
@@ -21,6 +22,12 @@ function pickColor() {
     currentMode = "standard";
     currentColor = picker.value;
 }
+
+// Changes mode to erase and changes the color to white;
+eraser.addEventListener("click", () => {
+    currentMode = "erase";
+    currentColor = "#ffffff";
+})
 
 // Changes mode to rainbow
 rainbow.addEventListener("click", () => {
