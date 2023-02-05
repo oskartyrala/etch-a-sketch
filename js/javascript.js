@@ -12,11 +12,15 @@ let currentColor = "#000000";
 let currentMode = "standard"
 
 // Changes mode to standard and updates the current "brush" color
-picker.addEventListener("input", () => {
+picker.addEventListener("input", pickColor);
+
+picker.addEventListener("click", pickColor);
+
+function pickColor() {
     pickerContainer.style.backgroundColor = picker.value;
     currentMode = "standard";
     currentColor = picker.value;
-})
+}
 
 // Changes mode to rainbow
 rainbow.addEventListener("click", () => {
