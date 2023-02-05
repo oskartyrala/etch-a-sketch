@@ -7,7 +7,7 @@ body, html {
 }
 
 button:hover,
-.picker:hover {
+.pick:hover {
     cursor: pointer;
 }
 
@@ -108,7 +108,7 @@ body {
     border: 3px solid #f7f7f9;
 }
 
-.pick {
+#pick {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -128,7 +128,7 @@ body {
     filter: drop-shadow(1px 1px 2px black);
 }
 
-.rainbow {
+#rainbow {
     background-image: linear-gradient(to bottom right, #FF0000, #FF7F00, #FFFF00, #00FF00, #1555E3, #2E2B5F, #8B00FF);
 }
 
