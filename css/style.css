@@ -82,6 +82,7 @@ body {
     width: 600px;
     height: 600px;
     border-radius: 10px;
+    background-color: #FFFFFF;
     overflow: hidden;
 }
 
@@ -94,7 +95,8 @@ body {
     flex: 1;
 }
 
-.mode {
+.mode,
+.toggle {
     box-sizing: border-box;
     width: 50px;
     height: 50px;
@@ -132,12 +134,55 @@ body {
     background-image: linear-gradient(to bottom right, #FF0000, #FF7F00, #FFFF00, #00FF00, #1555E3, #2E2B5F, #8B00FF);
 }
 
+.opacity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.lighten,
+.darken {
+    filter: drop-shadow(0px 0px 1px black);
+}
+
+.lighten {
+    width: 25px;
+    height: 25px;
+}
+
+.darken {
+    width: 20px;
+    height: 20px;
+}
+
 .slider {
-    height: 535px;
-    width: 40px;
-    border-radius: 50px;
-    background-image: linear-gradient(#000000, #FFFFFF);
-    box-shadow: inset 1px 1px 3px #00000077;
+    appearance: none;
+    transform: rotate(-90deg);
+    background-color: #312f2f;
+    box-shadow: inset -1px 1px 2px #00000077, inset 1px -1px 2px #ffffff77;
+    border: 1px solid #EBEBEB;
+    width: 60px;
+    height: 20px;
+    border-radius: 10px;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    background-color: #EBEBEB;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: inset -2px 2px 4px #ffffff77, inset 2px -2px 4px #00000077;
+}
+
+.slider.disabled {
+    border: 1px solid black;
+}
+
+.slider.disabled::-webkit-slider-thumb {
+    background-color: black;
 }
 
 .pixel {
