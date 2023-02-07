@@ -153,9 +153,10 @@ function colorPixel(e, pixel) {
         // Shade mode logic
         if (shade.value !== "0") {
            shadeColor(pixel);
-        } 
+        } else {
+            pixel.style.backgroundColor = currentColor;
+        }
 
-        pixel.style.backgroundColor = currentColor;
     }
 }
 
@@ -189,10 +190,11 @@ function shadeColor(pixel) {
         pixelColorArray[3] = alphaValue + ")";
     }
 
-    // Feeds the new alpha value to the current color
+    // Combines the new alpha value with the current color and paints the pixel
     const currentColorArray = currentColor.split(", ");
     currentColorArray[3] = pixelColorArray[3];
-    currentColor = currentColorArray.join(", ");
+    shadedColor = currentColorArray.join(", ");
+    pixel.style.backgroundColor = shadedColor;
 }
 
 // Wipes the board
