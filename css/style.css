@@ -84,6 +84,11 @@ body {
     border-radius: 10px;
     background-color: #FFFFFF;
     overflow: hidden;
+    /* Adding these borders here since the pixels within the grid only have
+    a left border and a top border. It's not significant visually, but
+    it's here for consistency's sake */
+    border-right: 1px solid #312f2f22;
+    border-bottom: 1px solid #312f2f22;
 }
 
 .side {
@@ -187,10 +192,15 @@ body {
 
 .pixel {
     box-sizing: border-box;
-    border: 1px solid #312f2f22;
+    /* It's important that an individual pixel does not have borders
+    on opposite sides (left & right, or top & bottom). For unknown reasons,
+    this creates weird shapes and artifacts on the page when viewed in firefox
+    at certain number of pixels . For this reason, a single pixel only has 
+    left and top borders, and the grid itself has a bottom and right border 
+    to balance it out. */
+    border-left: 1px solid #312f2f22;
+    border-top: 1px solid #312f2f22;
     flex: auto;
-    padding: 0;
-    margin: 0;
     background-color: #ffffff;
 }
 
