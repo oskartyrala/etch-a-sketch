@@ -11,12 +11,28 @@ const erase = document.querySelector("#erase");
 const shade = document.querySelector(".shade");
 const lighten = document.querySelector(".lighten");
 const darken = document.querySelector(".darken");
+const brushSmall = document.querySelector(".small");
+const brushLarge = document.querySelector(".large");
 
 // Determines the current mode and "brush" color
 let currentColor;
 let shadeKeeper;
+let brushSize;
 pickColor();
 markSelected();
+
+// Changes brush size between 1x1 and 3x3
+brushSmall.addEventListener("click", () => {
+    brushSize = "small";
+    brushSmall.classList.add("active");
+    brushLarge.classList.remove("active");
+})
+
+brushLarge.addEventListener("click", () => {
+    brushSize = "large";
+    brushLarge.classList.add("active");
+    brushSmall.classList.remove("active");
+})
 
 // Changes mode to standard and updates the current "brush" color
 picker.addEventListener("input", pickColor);
@@ -152,11 +168,44 @@ function colorPixel(e, pixel) {
 
         // Shade mode logic
         if (shade.value !== "0") {
-           shadeColor(pixel);
+           shadePixel(pixel);
         } else {
             pixel.style.backgroundColor = currentColor;
         }
 
+        // Large brush logic
+        if (brushSize === "large") {
+            paint3x3(pixel);
+        }
+    }
+}
+
+// Paints around the selected pixel while respecting edges and corners
+function paint3x3(pixel) {
+    let pxIndex = Array.prototype.indexOf.call(grid.children, pixel);
+
+    paintAround(pxIndex - hValue);
+    paintAround(pxIndex + hValue);
+
+    // Checks if it should paint on the left side;
+    if (pxIndex !== 0 && pxIndex % hValue > (pxIndex - 1) % hValue) {
+        paintAround(pxIndex - 1 - hValue);
+        paintAround(pxIndex - 1);
+        paintAround(pxIndex - 1 + hValue);
+    }
+
+    // Checks if it should paint on the right side
+    if (pxIndex % hValue < (pxIndex + 1) % hValue) {
+        paintAround(pxIndex + 1 - hValue);
+        paintAround(pxIndex + 1);
+        paintAround(pxIndex + 1 + hValue);
+    }
+}
+
+function paintAround(childNumber) {
+    // Checks if it should paint on top or bottom
+    if (childNumber >= 0 && childNumber < hValue * vValue) {
+        grid.children[childNumber].style.backgroundColor = currentColor;
     }
 }
 
@@ -166,7 +215,7 @@ function getRGBValue() {
 }
 
 // Increases or decreases current color's alpha by 0.1
-function shadeColor(pixel) {
+function shadePixel(pixel) {
 
     // If the pixel hasn't been colored yet, we assume fully transparent white
     if (!pixel.style.backgroundColor) {
