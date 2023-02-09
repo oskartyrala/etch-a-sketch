@@ -13,11 +13,15 @@ const lighten = document.querySelector(".lighten");
 const darken = document.querySelector(".darken");
 const brushSmall = document.querySelector(".small");
 const brushLarge = document.querySelector(".large");
+const borderless = document.querySelector(".borderless");
+const bordersIcon = document.querySelector(".borderless > .icon");
 
 // Determines the current mode and "brush" color
 let currentColor;
 let shadeKeeper;
 let brushSize;
+let borders = true;
+let pixels = [];
 pickColor();
 markSelected();
 
@@ -32,6 +36,21 @@ brushLarge.addEventListener("click", () => {
     brushSize = "large";
     brushLarge.classList.add("active");
     brushSmall.classList.remove("active");
+})
+
+// Toggles pixel borders
+borderless.addEventListener("click", () => {
+    for (pixel of pixels) {
+        pixel.classList.toggle("borderless");
+    }
+
+    if (borders) {
+        bordersIcon.src = "./img/borders-on.svg";
+        borders = false;
+    } else {
+        bordersIcon.src = "./img/borders-off.svg";
+        borders = true;
+    }
 })
 
 // Changes mode to standard and updates the current "brush" color
@@ -114,6 +133,7 @@ for (input of inputs) {
 }
 
 function createGrid(horizontal, vertical) {
+    pixels = [];
     grid.textContent = "";
 
     hValue = Number(horizontal.value);
@@ -134,6 +154,9 @@ function createGrid(horizontal, vertical) {
     for (let i = 0; i < (hValue * vValue); i++) {
         const pixel = document.createElement("div");
         pixel.classList.add("pixel");
+        if (!borders) {
+            pixel.classList.add("borderless");
+        }
         pixel.style.width = (100 / hValue) + "%";
         pixel.style.height = (600 / vValue) + "px";
 
@@ -145,6 +168,7 @@ function createGrid(horizontal, vertical) {
             colorPixel(e, pixel);
         })
         
+        pixels.push(pixel);
         grid.appendChild(pixel);
     }
 }

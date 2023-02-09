@@ -106,6 +106,15 @@ body {
     padding: 0;
 }
 
+.borderless {
+    padding: 0;
+    background-color: #312f2f;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .selected {
     border: 3px solid #EBEBEB;
 }
@@ -135,7 +144,8 @@ body {
 }
 
 .alpha-container,
-.brush-container {
+.brush-container,
+.borderless-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -229,6 +239,10 @@ body {
     border-left: 1px solid #312f2f22;
     border-top: 1px solid #312f2f22;
     background-color: #ffffff;
+}
+
+.borderless {
+    border: none;
 }
 
 .handle {
