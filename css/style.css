@@ -80,8 +80,9 @@ body {
     display: flex;
     flex-wrap: wrap;
     width: 600px;
-    height: 600px;
+    /* height: 600px; */
     border-radius: 10px;
+    background-color: #FFFFFF;
     overflow: hidden;
 }
 
@@ -220,6 +221,7 @@ body {
 
 .pixel {
     box-sizing: border-box;
+    flex: auto;
     /* It's important that an individual pixel does not have borders
     on opposite sides (left & right, or top & bottom). For unknown reasons,
     this creates weird shapes and artifacts on the page when viewed in firefox

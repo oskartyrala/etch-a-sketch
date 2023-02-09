@@ -135,6 +135,7 @@ function createGrid(horizontal, vertical) {
         const pixel = document.createElement("div");
         pixel.classList.add("pixel");
         pixel.style.width = (100 / hValue) + "%";
+        pixel.style.height = (600 / vValue) + "px";
 
         pixel.addEventListener("mousedown", (e) => {
             colorPixel(e, pixel);
