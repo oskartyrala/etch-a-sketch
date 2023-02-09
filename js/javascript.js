@@ -134,7 +134,6 @@ function createGrid(horizontal, vertical) {
     for (let i = 0; i < (hValue * vValue); i++) {
         const pixel = document.createElement("div");
         pixel.classList.add("pixel");
-        pixel.style.height = (100 / vValue) + "%";
         pixel.style.width = (100 / hValue) + "%";
 
         pixel.addEventListener("mousedown", (e) => {

@@ -82,7 +82,6 @@ body {
     width: 600px;
     height: 600px;
     border-radius: 10px;
-    background-color: #FFFFFF;
     overflow: hidden;
 }
 
@@ -227,7 +226,6 @@ body {
     at certain number of pixels. */
     border-left: 1px solid #312f2f22;
     border-top: 1px solid #312f2f22;
-    flex: auto;
     background-color: #ffffff;
 }
 
