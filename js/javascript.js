@@ -171,8 +171,6 @@ function colorPixel(e, pixel) {
            shadePixel(pixel);
         } else {
             pixel.style.backgroundColor = currentColor;
-            let pxIndex = Array.prototype.indexOf.call(grid.children, pixel);
-            console.log(pxIndex);
         }
 
         // Large brush logic
@@ -206,9 +204,13 @@ function paint3x3(pixel) {
 
 function paintAround(childNumber) {
     // Checks if it should paint on top or bottom
-    console.log(childNumber);
     if (childNumber >= 0 && childNumber < hValue * vValue) {
-        grid.children[childNumber].style.backgroundColor = currentColor;
+        if (shade.value === "0") {
+            grid.children[childNumber].style.backgroundColor = currentColor;
+        } else {
+            shadePixel(grid.children[childNumber]);
+        }
+
     }
 }
 
