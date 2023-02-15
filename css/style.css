@@ -106,9 +106,11 @@ body {
     padding: 0;
 }
 
-.borderless {
+.borderless,
+#bucket {
     padding: 0;
     background-color: #312f2f;
+    border: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -243,6 +245,11 @@ body {
     background-color: #EBEBEB;
 }
 
+#bucket > .icon {
+    height: 30px;
+    width: 30px;
+}
+
 .pixel {
     box-sizing: border-box;
     flex: auto;
@@ -252,10 +259,10 @@ body {
     at certain number of pixels. */
     border-left: 1px solid #312f2f22;
     border-top: 1px solid #312f2f22;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0);
 }
 
-.borderless {
+.noborders {
     border: none;
 }
 
