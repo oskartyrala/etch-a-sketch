@@ -6,11 +6,6 @@ body, html {
     box-sizing: border-box;
 }
 
-button:hover,
-.picker:hover {
-    cursor: pointer;
-}
-
 body {
     height: 100vh;
     display: flex;
@@ -20,9 +15,9 @@ body {
     color: #EBEBEB;
 }
 
+/* Etch-a-sketch pad */
 .pad {
     display: flex;
-    align-items: stretch;
     background-color: #312f2f;
     height: 750px;
     width: 900px;
@@ -31,14 +26,51 @@ body {
     10px 15px 30px #00000077;
 }
 
+.icon {
+    height: 25px;
+    width: 25px;
+    filter: drop-shadow(1px 1px 2px black);
+}
+
+button:hover,
+.picker:hover,
+.slider::-webkit-slider-thumb {
+    cursor: pointer;
+}
+
+/* Pixel grid section */
 .middle {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: center;;
-    width: 600px;
 }
 
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    width: 600px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    overflow: hidden;
+}
+
+.pixel {
+    box-sizing: border-box;
+    /* It's important that an individual pixel does not have borders
+    on opposite sides (left & right, or top & bottom). For unknown reasons,
+    this creates weird shapes and artifacts on the page when viewed in firefox
+    at certain number of pixels. */
+    border-left: 1px solid #312f2f22;
+    border-top: 1px solid #312f2f22;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.noborders,
+button.borderless,
+#bucket {
+    border: none;
+}
+
+/* Grid dimentions input section */
 .top {
     flex: 1;
     display: flex;
@@ -58,6 +90,7 @@ body {
     box-shadow: inset 1px 1px 3px #00000077, inset -1px -1px 3px #ffffff77;
 }
 
+/* Wipe button section */
 .bottom {
     flex: 1;
     display: flex;
@@ -76,16 +109,7 @@ body {
     box-shadow: inset 2px 2px 3px #ffffff77, inset -2px -2px 3px #00000077;
 }
 
-.grid {
-    display: flex;
-    flex-wrap: wrap;
-    width: 600px;
-    /* height: 600px; */
-    border-radius: 10px;
-    background-color: #FFFFFF;
-    overflow: hidden;
-}
-
+/* Side sections */
 .side {
     display: flex;
     flex-direction: column;
@@ -95,73 +119,49 @@ body {
     flex: 1;
 }
 
-.mode,
-.toggle {
+/* Left side */
+.mode {
     box-sizing: border-box;
     width: 50px;
     height: 50px;
     border-radius: 50%;
     box-shadow: inset 2px 2px 4px #ffffff77, inset -2px -2px 4px #00000077;
     border: none;
-    padding: 0;
-}
-
-.borderless,
-#bucket {
-    padding: 0;
-    background-color: #312f2f;
-    border: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .selected {
     border: 3px solid #EBEBEB;
 }
 
-.icon {
-    height: 25px;
-    filter: drop-shadow(1px 1px 2px black);
-}
-
-#pick {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* Left side - standard mode button */
+#standard {
     overflow: hidden;
-    background-color: #000000;
     position: relative;
 }
 
-#pick > img {
+#standard > img {
     position: absolute;
     top: calc(50% - 12px);
-    left: calc(50% - 11px);
-    height: 28px;
-    filter: drop-shadow(0px 0px 2px black);
+    left: calc(50% - 12px);
 }
 
 .picker {
 	opacity: 0;
     width: 60px;
     height: 60px;
-	border: none;
 }
 
-#rainbow {
+/* Left side - random mode button */
+#random {
     background-image: linear-gradient(to bottom right, #FF0000, #FF7F00, #FFFF00, #00FF00, #1555E3, #2E2B5F, #8B00FF);
 }
 
-#rainbow > img {
-    height: 28px;
-    filter: drop-shadow(1px 1px 2px white);
+#random > .icon {
+    filter: drop-shadow(1px 1px 1px white);
 }
 
-.alpha-container,
-.brush-container,
-.borderless-container {
+/* Right side */
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -169,29 +169,12 @@ body {
     border-radius: 10px;
     width: 60px;
     padding: 20px 0px;
-}
-
-.alpha-container {
-    gap: 30px;
-}
-
-.brush-container {
     gap: 15px;
 }
 
-.lighten,
-.darken {
-    filter: drop-shadow(0px 0px 1px black);
-}
-
-.lighten {
-    width: 25px;
-    height: 25px;
-}
-
-.darken {
-    width: 20px;
-    height: 20px;
+/* Right side - shading slider */
+.shading.container {
+    gap: 30px;
 }
 
 .slider {
@@ -211,7 +194,6 @@ body {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    cursor: pointer;
     box-shadow: inset -2px 2px 4px #ffffff77, inset 2px -2px 4px #00000077;
 }
 
@@ -223,49 +205,59 @@ body {
     background-color: black;
 }
 
-.brush {
+.darken {
+    width: 20px;
+    height: 20px;
+}
+
+/* Right side - brush size selectors */
+button.brush {
     padding: 0;
     background-color: #312f2f;
     border: 1px solid #ebebeb;
 }
 
-.brush.small {
+#small {
     width: 10px;
     height: 10px;
     border-radius: 2px;
 }
 
-.brush.large {
+#large,
+#bucket {
     width: 30px;
     height: 30px;
+}
+
+#large {
     border-radius: 5px;
 }
 
-.brush.active {
+#bucket {
+    background: url(../img/bucket.svg) center no-repeat;
+}
+
+#small.active,
+#large.active {
     background-color: #EBEBEB;
 }
 
-#bucket > .icon {
-    height: 30px;
-    width: 30px;
+#bucket.active {
+    background: url(../img/bucket-active.svg) center no-repeat;
 }
 
-.pixel {
-    box-sizing: border-box;
-    flex: auto;
-    /* It's important that an individual pixel does not have borders
-    on opposite sides (left & right, or top & bottom). For unknown reasons,
-    this creates weird shapes and artifacts on the page when viewed in firefox
-    at certain number of pixels. */
-    border-left: 1px solid #312f2f22;
-    border-top: 1px solid #312f2f22;
-    background-color: rgba(255, 255, 255, 0);
+/* Right side - borderless button */
+button.borderless {
+    height: 25px;
+    width: 25px;
+    background: url(../img/borders-off.svg) center no-repeat;;
 }
 
-.noborders {
-    border: none;
+button.borderless.active {
+    background: url(../img/borders-on.svg) center no-repeat;
 }
 
+/* Pad handles */
 .handle {
     display: flex;
     align-items: center;
@@ -275,36 +267,33 @@ body {
     z-index: 1;
 }
 
-.left {
+.left.handle {
     justify-content: flex-end;
     border-radius: 70px 5px 5px 70px;
     box-shadow: inset 4px 4px 7px #ffffff77, inset -4px -4px 7px #00000077, 10px 15px 30px #00000077;
     margin-right: -4px;
 }
 
-.right {
-    justify-content: flex-start;
+.right.handle {
     border-radius: 5px 70px 70px 5px;
     box-shadow: inset -4px -4px 7px #00000077, 10px 15px 30px #00000077;
-    margin-left: -3px;
+    margin-left: -4px;
 }
 
-.empty-left {
+.hole {
     background-color: #EBEBEB;
-    width: 46px;
     height: 400px;
-    margin-right: 4px;
-    border-radius: 20px 0 0 20px;
-    box-shadow: -4px -4px 7px #00000077, 4px 4px 7px #ffffff77,
-    inset 10px 15px 30px #00000077;
-}
-
-.empty-right {
-    background-color: #EBEBEB;
     width: 47px;
-    height: 400px;
-    margin-left: 3px;
-    border-radius: 0 20px 20px 0;
     box-shadow: -4px -4px 7px #00000077, 4px 4px 7px #ffffff77, 
     inset 10px 15px 30px #00000077;
+}
+
+.left.hole {
+    margin-right: 4px;
+    border-radius: 20px 0 0 20px;
+}
+
+.right.hole {
+    margin-left: 4px;
+    border-radius: 0 20px 20px 0;
 }

@@ -9,22 +9,26 @@
     <title>Etch-a-Sketch</title>
 </head>
 <body>
+
 <div class="left handle">
-    <div class="empty-left"></div>
+    <div class="left hole"></div>
 </div>
+
 <div class="pad">
+
     <div class="side">
-        <div class="mode" id="pick">
+        <div class="mode" id="standard">
             <img class="icon" src="./img/picker-white.svg" alt="picker icon">
             <input type="color" class="picker">
         </div>
         <button class="mode" id="erase">
             <img class="icon" src="./img/eraser.svg" alt="eraser icon">
         </button>
-        <button class="mode" id="rainbow">
-                       <img class="icon" src="./img/dice-black.svg" alt="eraser icon">
+        <button class="mode" id="random">
+            <img class="icon" src="./img/dice-black.svg" alt="random icon">
         </button>
     </div>
+
     <div class="middle">
         <div class="top">
             <input class="horizontal" value="50">
@@ -36,30 +40,28 @@
             <button class="wipe">WIPE</button>
         </div>
     </div>
-    <div class="side">
-        <div class="alpha-container">
-            <img src="" alt="lighten icon" class="lighten">
-            <input type="range" min="-1" max="1" value="0" class="slider shade disabled">
-            <img src="" alt="darken icon" class="darken">
-        </div>
-        <div class="brush-container">
-            <button class="brush small active"></button>
-            <button class="brush large"></button>
-            <button id="bucket">
-                <img class="icon" src="./img/bucket.svg" alt="borders icon">
-            </button>
-        </div>
-        <div class="borderless-container">
-            <button class="borderless">
-                <img class="icon" src="./img/borders-off.svg" alt="borders icon">
-            </button>
-            
-        </div>
 
+    <div class="side">
+        <div class="shading container">
+            <img src="./img/lighten-enabled.svg" alt="lighten icon" class="lighten icon">
+            <input type="range" min="-1" max="1" value="0" class="slider">
+            <img src="./img/darken-enabled.svg" alt="darken icon" class="darken icon">
+        </div>
+        <div class="brush container">
+            <button class="brush active" id="small"></button>
+            <button class="brush" id="large"></button>
+            <button class="brush" id="bucket"></button>
+        </div>
+        <div class="borders container">
+            <button class="borderless"></button>
+        </div>
     </div>
+
 </div>
+
 <div class="right handle">
-    <div class="empty-right"></div>
+    <div class="right hole"></div>
 </div>
+
 </body>
 </html>
