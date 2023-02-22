@@ -58,25 +58,208 @@ function createGrid(horizontal, vertical) {
         pixel.style.height = (600 / vValue) + "px";
 
         pixel.addEventListener("mousedown", (e) => {
+
+            const pxIndex = pixels.indexOf(e.target);
+
             if (e.buttons === 1) {
                 e.preventDefault();
-                paintPixels(pixels.indexOf(e.target));
+                paintPixels(pxIndex);
             }
         })
 
         pixel.addEventListener("mouseenter", (e) => {
+
+            const pxIndex = pixels.indexOf(e.target);
+
+            if (brushSize === "small") {
+                addBorder(pxIndex, "top");
+                addBorder(pxIndex, "bottom");
+                addBorder(pxIndex, "left");
+                addBorder(pxIndex, "right");
+            }
+            
+            if (brushSize === "large") {
+                outlineLargeBrush(pxIndex);
+            }
+    
+            if (brushSize === "bucket") {
+                outlineBucket(pxIndex);
+            }
+
             if (e.buttons === 1) {
                 e.preventDefault();
-                paintPixels(pixels.indexOf(e.target));
+                paintPixels(pxIndex);
             }
         })
-        
+    
+        pixel.addEventListener("mouseleave", () => {
+            removeOutline();
+        })
+                
         pixels.push(pixel);
         grid.appendChild(pixel);
     }
 }
 
-// Wipe the board cleanpixels.indexOf(e.target)
+// Add borders around the area that will be painted.
+// This function accepts one side argument instead of multiple to make it easier
+// to generate random colors for each border in random mode.
+// The function being called separately for each side means the border color
+// will get randomly generated anew each time.
+function addBorder(pxIndex, side) {
+
+    let borderColor;
+
+    if (currentMode === "standard") {
+        borderColor = getRgbaFromHex(picker.value);
+    } else if (currentMode === "erase") {
+        borderColor = "rgba(255, 255, 255, 1)";
+    } else if (currentMode === "random") {
+        borderColor = `rgb(${getRandomRgbValue()}, ${getRandomRgbValue()}, 
+        ${getRandomRgbValue()})`;
+    }
+
+    if (pxIndex >= 0 &&
+        pxIndex < hValue * vValue) {
+
+            switch (side) {
+                case "top":
+                    pixels[pxIndex].style.borderTop = `3px double ${borderColor}`;
+                    break;
+
+                case "bottom":
+                    pixels[pxIndex].style.borderBottom = `3px double ${borderColor}`;
+                    break;
+
+                case "left":
+                    pixels[pxIndex].style.borderLeft = `3px double ${borderColor}`;
+                    break;
+
+                case "right":
+                    pixels[pxIndex].style.borderRight = `3px double ${borderColor}`;
+                    break;
+            }
+
+        // If the pixel doesn't exist, clip the outline on top and bottom accordingly.
+        } else {
+
+            switch (side) {
+                case "top":
+                    pixels[pxIndex + hValue].style.borderTop = `3px double ${borderColor}`;
+                    break;
+
+                case "bottom":
+                    pixels[pxIndex - hValue].style.borderBottom = `3px double ${borderColor}`;
+                    break;
+            }
+        }
+}
+
+// Show an outline around the area that will be painted with the large brush.
+function outlineLargeBrush(pxIndex) {
+
+    // Outline pixels on top and bottom if they don't go over the edge
+    // (top and bottom edge logic inside addBorder).
+ 
+    addBorder(pxIndex - hValue, "top");
+    addBorder(pxIndex + hValue, "bottom");
+
+    // Outline pixels on the sides. If at the edge of the grid,
+    // clip the outline accordingly:
+    // Left side
+    if (pxIndex !== 0 &&
+        pxIndex % hValue > (pxIndex - 1) % hValue) {
+        addBorder(pxIndex - 1 - hValue, "top");
+        addBorder(pxIndex - 1 - hValue, "left");
+        addBorder(pxIndex - 1, "left");
+        addBorder(pxIndex - 1 + hValue, "bottom");
+        addBorder(pxIndex - 1 + hValue, "left");
+    } else {
+        addBorder(pxIndex - hValue, "left");
+        addBorder(pxIndex, "left");
+        addBorder(pxIndex + hValue, "left");
+    }
+
+    // Right side
+    if (pxIndex % hValue < (pxIndex + 1) % hValue) {
+        addBorder(pxIndex + 1 - hValue, "top");
+        addBorder(pxIndex + 1 - hValue, "right");
+        addBorder(pxIndex + 1, "right");
+        addBorder(pxIndex + 1 + hValue, "bottom");
+        addBorder(pxIndex + 1 + hValue, "right");
+    } else {
+        addBorder(pxIndex - hValue, "right");
+        addBorder(pxIndex, "right");
+        addBorder(pxIndex + hValue, "right");
+    }
+}
+
+// Show an outline around the area that will be painted with the bucket.
+function outlineBucket(pxIndex) {
+    const bucketTargetColor = getRgbaFromRgb(pixels[pxIndex].style.backgroundColor);
+    outlineToEdge(pxIndex, bucketTargetColor);
+}
+
+function outlineToEdge(pxIndex, bucketTargetColor) {
+
+    const adjacentPxColor = getRgbaFromRgb(pixels[pxIndex].style.backgroundColor);
+
+    // Keep checking as long as the color matches with the target pixel.
+    if (adjacentPxColor === bucketTargetColor) {
+        
+        // Only check pixels that haven't been checked yet. Checked pixels will
+        // have the hover class.
+        if (!(pixels[pxIndex].classList.contains("hover"))) {
+
+            pixels[pxIndex].classList.add("hover");
+
+            // Check pixels on the sides if they don't go over the edge.
+            if (pxIndex !== 0 && 
+                pxIndex % hValue > (pxIndex - 1) % hValue &&
+                getRgbaFromRgb(pixels[pxIndex - 1].style.backgroundColor) === bucketTargetColor) {
+
+                outlineToEdge(pxIndex - 1, bucketTargetColor);
+
+            } else {
+                addBorder(pxIndex, "left");
+            }
+        
+            if (pxIndex % hValue < (pxIndex + 1) % hValue &&
+                getRgbaFromRgb(pixels[pxIndex + 1].style.backgroundColor) === bucketTargetColor) {
+
+                outlineToEdge(pxIndex + 1, bucketTargetColor);
+
+            } else {
+                addBorder(pxIndex, "right");
+            }
+        
+            // Check pixels on top and bottom if they don't go over the edge.
+            if (pxIndex - hValue >= 0 &&
+                getRgbaFromRgb(pixels[pxIndex - hValue].style.backgroundColor) === bucketTargetColor) {
+                outlineToEdge(pxIndex - hValue, bucketTargetColor);
+            } else {
+                addBorder(pxIndex, "top");
+            }
+        
+            if (pxIndex + hValue < hValue * vValue &&
+                getRgbaFromRgb(pixels[pxIndex + hValue].style.backgroundColor) === bucketTargetColor) {
+                outlineToEdge(pxIndex + hValue, bucketTargetColor);
+            } else {
+                addBorder(pxIndex, "bottom");
+            }
+        }
+    }
+}
+
+// Remove the outline from all pixels (triggered when the mouse leaves a pixel)
+function removeOutline() {
+    for (pixel of pixels) {
+        pixel.classList.remove("hover");
+        pixel.style.border = "";
+    }
+}
+
+// Wipe the board clean
 wipe.addEventListener("click", () => createGrid(horizontal, vertical));
 
 // Change the current mode
@@ -90,6 +273,7 @@ function setMode(newMode) {
     currentMode = newMode;
     markSelected(newMode);
     toggleShade();
+    updateColor();
 }
 
 // Place a border around the selected mode
@@ -133,6 +317,7 @@ picker.addEventListener("click", pickColor);
 
 function pickColor() {
     pickerContainer.style.backgroundColor = picker.value;
+    updateColor();
 }
 
 // Select the brush size: small, large, or bucket.
@@ -298,10 +483,15 @@ function paintLargeBrush(pxIndex) {
 // Coloring stops when it encounters grid edge or a different colored pixel.
 function paintBucket(pxIndex) {
     const bucketTargetColor = getRgbaFromRgb(pixels[pxIndex].style.backgroundColor);
-    paintTillBorder(pxIndex, bucketTargetColor);
+    paintToEdge(pxIndex, bucketTargetColor);
+
+    // Update the hover border after bucket painting without the mouse leaving 
+    // the pixel.
+    removeOutline();
+    outlineBucket(pxIndex);
 }
 
-function paintTillBorder(pxIndex, bucketTargetColor) {
+function paintToEdge(pxIndex, bucketTargetColor) {
 
     const adjacentPxColor = getRgbaFromRgb(pixels[pxIndex].style.backgroundColor);
 
@@ -317,20 +507,20 @@ function paintTillBorder(pxIndex, bucketTargetColor) {
             // Paint pixels on the sides if they don't go over the edge.
             if (pxIndex !== 0 && 
                 pxIndex % hValue > (pxIndex - 1) % hValue) {
-                paintTillBorder(pxIndex - 1, bucketTargetColor);
+                paintToEdge(pxIndex - 1, bucketTargetColor);
             }
         
             if (pxIndex % hValue < (pxIndex + 1) % hValue) {
-                paintTillBorder(pxIndex + 1, bucketTargetColor);
+                paintToEdge(pxIndex + 1, bucketTargetColor);
             }
         
             // Paint pixels on top and bottom if they don't go over the edge.
             if (pxIndex - hValue > 0) {
-                paintTillBorder(pxIndex - hValue, bucketTargetColor);
+                paintToEdge(pxIndex - hValue, bucketTargetColor);
             }
         
             if (pxIndex + hValue < hValue * vValue) {
-                paintTillBorder(pxIndex + hValue, bucketTargetColor);
+                paintToEdge(pxIndex + hValue, bucketTargetColor);
             }
         }
     }
