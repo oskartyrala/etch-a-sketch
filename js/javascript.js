@@ -51,7 +51,7 @@ function createGrid(horizontal, vertical) {
         const pixel = document.createElement("div");
         pixel.classList.add("pixel");
         if (!pxBorders) {
-            pixel.classList.add("borderless");
+            pixel.classList.add("noborders");
         }
         
         pixel.style.width = (600 / hValue) + "px";
@@ -337,6 +337,12 @@ borderless.addEventListener("click", () => {
         pixel.classList.toggle("noborders");
     }
     borderless.classList.toggle("active");
+
+    if (pxBorders === true) {
+        pxBorders = false;
+    } else {
+        pxBorders = true;
+    }
 })
 
 // Paint the pixels based on brush size.
