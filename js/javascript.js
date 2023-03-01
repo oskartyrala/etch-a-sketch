@@ -10,6 +10,8 @@ const lightenIcon = document.querySelector(".lighten");
 const darkenIcon = document.querySelector(".darken");
 const brushes = document.querySelectorAll("button.brush");
 const borderless = document.querySelector(".borderless");
+const undo = document.querySelector(".undo");
+const redo = document.querySelector(".redo");
 
 let pixels = [];
 let currentMode;
@@ -17,6 +19,9 @@ let currentColor;
 let shadeKeeper;
 let brushSize = "small";
 let pxBorders = true;
+let allStateStorage = [];
+let previousState = [];
+let undoTracker = 0;
 
 // Set up the initial state
 setMode("standard");
@@ -31,6 +36,7 @@ vertical.addEventListener("input", () => createGrid(horizontal, vertical));
 function createGrid(horizontal, vertical) {
     pixels = [];
     grid.textContent = "";
+    undoTracker = 0;
 
     hValue = Number(horizontal.value);
     vValue = Number(vertical.value);
@@ -63,7 +69,26 @@ function createGrid(horizontal, vertical) {
 
             if (e.buttons === 1) {
                 e.preventDefault();
+
+                // If painting when redo is possible, remove all redoable states.
+                if (undoTracker !== 0) {
+                    for (let i = 0; i < undoTracker; i++) {
+                        allStateStorage.shift();
+                    }
+                    undoTracker = 0;
+                }
+
+                // Marking pixels allows undo and redo to work with shading and random.
+                for (pixle of pixels) {
+                    pixle.classList.remove("tracked");
+                }
+
+                previousState = [];
                 paintPixels(pxIndex);
+                storeAllStates();
+
+                toggleUndo();
+                toggleRedo();
             }
         })
 
@@ -98,6 +123,93 @@ function createGrid(horizontal, vertical) {
                 
         pixels.push(pixel);
         grid.appendChild(pixel);
+    }
+}
+
+// Store up to 50 previous states to enable undo and redo.
+
+function storePreviousState(pxIndex, pxPrevColor, pxNewColor) {
+
+    // Store the previous state of each pixel only once to avoid overwriting
+    // the previous color. This allows undo and redo to work properly with
+    // shading and random, which can paint a single pixel several times in a 
+    // single brushstroke.
+    if (!(pixels[pxIndex].classList.contains("tracked"))) {
+        pixels[pxIndex].classList.add("tracked");
+
+        let pixelObject = {index: pxIndex, previousColor: pxPrevColor, newColor: pxNewColor};
+        previousState.push(pixelObject);
+    }
+
+}
+
+function storeAllStates() {
+    allStateStorage.unshift(previousState);
+    if (allStateStorage.length > 50) {
+        allStateStorage.pop();
+    }
+}
+
+// Undo logic - restore previous color of pixels painted in the last brushstroke.
+undo.addEventListener("click", () => {
+    undoLast();
+})
+
+document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.key === "z" && !undo.disabled) {
+        undoLast();
+    }
+})
+
+function undoLast() {
+    if (undoTracker < 50) {
+        for (object of allStateStorage[undoTracker]) {
+            pixels[object.index].style.backgroundColor = object.previousColor;
+        }
+        undoTracker++;
+    }
+
+    toggleUndo();
+    toggleRedo();
+}
+
+// Redo logic - restore the new pixel color of previously undone actions.
+redo.addEventListener("click", () => {
+    redoLast();
+})
+
+document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.key === "y" && !redo.disabled) {
+        redoLast();
+    }
+})
+
+function redoLast() {
+
+    if (undoTracker > 0) {
+        for (object of allStateStorage[undoTracker - 1]) {
+            pixels[object.index].style.backgroundColor = object.newColor;
+        }
+        undoTracker--;
+    }
+
+    toggleUndo();
+    toggleRedo();
+}
+
+function toggleUndo() {
+    if (undoTracker === allStateStorage.length) {
+        undo.disabled = true;
+    } else {
+        undo.disabled = false;
+    }
+}
+
+function toggleRedo() {
+    if (undoTracker === 0) {
+        redo.disabled = true;
+    } else {
+        redo.disabled = false;
     }
 }
 
@@ -370,7 +482,17 @@ function paintSmallBrush(pxIndex) {
 
         updateColor(pxIndex);
 
-        pixels[pxIndex].style.backgroundColor = currentColor;
+        // Paint only if the currentColor is different than the pixel's color.
+        // This ensures the undo button works properly and also undoes
+        // the pixels that were painted over twice or more with the same stroke.
+        if (getRgbaFromRgb(pixels[pxIndex].style.backgroundColor) !== currentColor) {
+            const pxPrevColor = getRgbaFromRgb(pixels[pxIndex].style.backgroundColor);
+
+    
+            pixels[pxIndex].style.backgroundColor = currentColor;
+            const pxNewColor = getRgbaFromRgb(pixels[pxIndex].style.backgroundColor);
+            storePreviousState(pxIndex, pxPrevColor, pxNewColor);
+        }
     }
 }
 

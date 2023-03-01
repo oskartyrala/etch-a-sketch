@@ -97,6 +97,31 @@ button.borderless,
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 20px;
+}
+
+.undo,
+.redo {
+    width: 20px;
+    height: 20px;
+    background-color: #312f2f;
+    background: none;
+    border: none;
+    filter: drop-shadow(1px 1px 1px black);
+}
+
+.undo:disabled,
+.redo:disabled {
+    opacity: 30%;
+    cursor: default;
+}
+
+.undo {
+    background: url(../img/undo.svg) center no-repeat;
+}
+
+.redo {
+    background: url(../img/redo.svg) center no-repeat;
 }
 
 .wipe {
