@@ -96,19 +96,21 @@ function createGrid(horizontal, vertical) {
 
             const pxIndex = pixels.indexOf(e.target);
 
-            if (brushSize === "small") {
-                addBorder(pxIndex, "top");
-                addBorder(pxIndex, "bottom");
-                addBorder(pxIndex, "left");
-                addBorder(pxIndex, "right");
-            }
-            
-            if (brushSize === "large") {
-                outlineLargeBrush(pxIndex);
-            }
-    
-            if (brushSize === "bucket") {
-                outlineBucket(pxIndex);
+            switch (brushSize) {
+                case "small":
+                    addBorder(pxIndex, "top");
+                    addBorder(pxIndex, "bottom");
+                    addBorder(pxIndex, "left");
+                    addBorder(pxIndex, "right");
+                    break;
+
+                case "large":
+                    outlineLargeBrush(pxIndex);
+                    break;
+
+                case "bucket":
+                    outlineBucket(pxIndex);
+                    break;
             }
 
             if (e.buttons === 1) {
@@ -222,13 +224,19 @@ function addBorder(pxIndex, side) {
 
     let borderColor;
 
-    if (currentMode === "standard") {
-        borderColor = getRgbaFromHex(picker.value);
-    } else if (currentMode === "erase") {
-        borderColor = "rgba(255, 255, 255, 1)";
-    } else if (currentMode === "random") {
-        borderColor = `rgb(${getRandomRgbValue()}, ${getRandomRgbValue()}, 
-        ${getRandomRgbValue()})`;
+    switch (currentMode) {
+        case "standard":
+            borderColor = getRgbaFromHex(picker.value);
+            break;
+
+        case "erase":
+            borderColor = "rgba(255, 255, 255, 1)";
+            break;
+
+        case "random":
+            borderColor = `rgb(${getRandomRgbValue()}, ${getRandomRgbValue()}, 
+            ${getRandomRgbValue()})`;
+            break;
     }
 
     if (pxIndex >= 0 &&
@@ -460,16 +468,18 @@ borderless.addEventListener("click", () => {
 // Paint the pixels based on brush size.
 function paintPixels(pxIndex) {
 
-    if (brushSize === "bucket") {
-        paintBucket(pxIndex);
-    }
+    switch (brushSize) {
+        case "small":
+            paintSmallBrush(pxIndex);
+            break;
 
-    if (brushSize === "large") {
-        paintLargeBrush(pxIndex);
-    }
+        case "large":
+            paintLargeBrush(pxIndex);
+            break;
 
-    if (brushSize === "small") {
-        paintSmallBrush(pxIndex);
+        case "bucket":
+            paintBucket(pxIndex);
+            break;
     }
 }
 
@@ -498,15 +508,19 @@ function paintSmallBrush(pxIndex) {
 
 function updateColor(pxIndex) {
 
-    if (currentMode === "standard") {
-        currentColor = getRgbaFromHex(picker.value);
+    switch (currentMode) {
+        case "standard":
+            currentColor = getRgbaFromHex(picker.value);
+            break;
 
-    } else if (currentMode === "random") {
-        currentColor = `rgb(${getRandomRgbValue()}, ${getRandomRgbValue()}, 
-        ${getRandomRgbValue()})`;
-        
-    } else if (currentMode === "erase") {
-        currentColor = "rgba(255, 255, 255, 0)";
+        case "random":
+            currentColor = `rgb(${getRandomRgbValue()}, ${getRandomRgbValue()}, 
+            ${getRandomRgbValue()})`;
+            break;
+
+        case "erase":
+            currentColor = "rgba(255, 255, 255, 0)";
+            break;
     }
 
     // Checking if pxIndex has been passed is necessary to make sure this 
