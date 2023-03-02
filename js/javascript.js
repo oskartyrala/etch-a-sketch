@@ -488,8 +488,8 @@ function paintSmallBrush(pxIndex) {
         if (getRgbaFromRgb(pixels[pxIndex].style.backgroundColor) !== currentColor) {
             const pxPrevColor = getRgbaFromRgb(pixels[pxIndex].style.backgroundColor);
 
-    
             pixels[pxIndex].style.backgroundColor = currentColor;
+            
             const pxNewColor = getRgbaFromRgb(pixels[pxIndex].style.backgroundColor);
             storePreviousState(pxIndex, pxPrevColor, pxNewColor);
         }
@@ -509,7 +509,9 @@ function updateColor(pxIndex) {
         currentColor = "rgba(255, 255, 255, 0)";
     }
 
-    if (slider.value !== "0") {
+    // Checking if pxIndex has been passed is necessary to make sure this 
+    // function can be called by pickColor() and setMode() when in shaidng mode.
+    if (slider.value !== "0" && pxIndex) {
         shadeColor(pixels[pxIndex]);
     }
 }
