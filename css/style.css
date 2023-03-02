@@ -9,8 +9,8 @@ body, html {
 body {
     height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
+    margin: auto;
     background-color: #EBEBEB;
     color: #EBEBEB;
 }
@@ -143,6 +143,7 @@ button.borderless,
     align-items: center;
     gap: 22px;
     flex: 1;
+    min-width: 100px;
 }
 
 /* Left side */
@@ -283,7 +284,7 @@ button.borderless.active {
 .handle {
     display: flex;
     align-items: center;
-    width: 100px;
+    min-width: 100px;
     height: 500px;
     background-color: #312f2f;
     z-index: 1;
