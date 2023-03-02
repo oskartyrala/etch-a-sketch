@@ -37,6 +37,9 @@ function createGrid(horizontal, vertical) {
     pixels = [];
     grid.textContent = "";
     undoTracker = 0;
+    allStateStorage = []
+    toggleUndo();
+    toggleRedo();
 
     // Limit input to integers between 1 and 100
     horizontal.value = Math.round(horizontal.value);
@@ -164,6 +167,9 @@ undo.addEventListener("click", () => {
 
 document.addEventListener("keydown", (e) => {
     if (e.ctrlKey && e.key === "z" && !undo.disabled) {
+        // preventDefault is needed so that it doesn't interact with the
+        // input fields.
+        e.preventDefault();
         undoLast();
     }
 })
@@ -187,6 +193,9 @@ redo.addEventListener("click", () => {
 
 document.addEventListener("keydown", (e) => {
     if (e.ctrlKey && e.key === "y" && !redo.disabled) {
+        // preventDefault is needed so that it doesn't interact with the
+        // input fields.
+        e.preventDefault();
         redoLast();
     }
 })
