@@ -30,29 +30,34 @@ createGrid(horizontal, vertical);
 
 // Create grid based on user input. Limit grid size to between 1x1 and 100x100.
 // Add listeners to pixels to enable painting.
-horizontal.addEventListener("input", () => createGrid(horizontal, vertical));
-vertical.addEventListener("input", () => createGrid(horizontal, vertical));
+horizontal.addEventListener("change", () => createGrid(horizontal, vertical));
+vertical.addEventListener("change", () => createGrid(horizontal, vertical));
 
 function createGrid(horizontal, vertical) {
     pixels = [];
     grid.textContent = "";
     undoTracker = 0;
 
+    // Limit input to integers between 1 and 100
+    horizontal.value = Math.round(horizontal.value);
+    vertical.value = Math.round(vertical.value);
+
+    if (Number(horizontal.value) < 1) {
+        horizontal.value = 1;
+    } else if ((Number(horizontal.value)) > 100) {
+        horizontal.value = 100;
+    }
+
+    if (Number(vertical.value) < 1) {
+        vertical.value = 1;
+    } else if (Number(vertical.value) > 100) {
+        vertical.value = 100;
+    }
+
     hValue = Number(horizontal.value);
     vValue = Number(vertical.value);
 
-    if (vValue < 1) {
-        vValue = 1;
-    } else if (vValue > 100) {
-        vValue = 100;
-    }
-
-    if (hValue < 1) {
-        hValue = 1;
-    } else if (hValue > 100) {
-        hValue = 100;
-    }
-
+    // Create the pixels in the grid.
     for (let i = 0; i < (hValue * vValue); i++) {
         const pixel = document.createElement("div");
         pixel.classList.add("pixel");
