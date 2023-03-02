@@ -417,17 +417,17 @@ slider.addEventListener("input", () => {
 function toggleShade() {
     if (currentMode === "standard") {
         slider.style.pointerEvents = "";
-        slider.classList.remove("disabled");
+        slider.disabled = false;
         slider.value = shadeKeeper;
-        darkenIcon.src = "./img/darken-enabled.svg";
-        lightenIcon.src = "./img/lighten-enabled.svg";
+        darkenIcon.style.opacity = "100%"
+        lightenIcon.style.opacity = "100%"
 
     } else {
         slider.value = "0";
-        slider.classList.add("disabled");
+        slider.disabled = true;
         slider.style.pointerEvents = "none";
-        darkenIcon.src = "./img/darken-disabled.svg";
-        lightenIcon.src = "./img/lighten-disabled.svg";
+        darkenIcon.style.opacity = "30%";
+        lightenIcon.style.opacity = "30%";
     }
 }
 

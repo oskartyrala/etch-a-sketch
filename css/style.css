@@ -223,12 +223,8 @@ button.borderless,
     box-shadow: inset -2px 2px 4px #ffffff77, inset 2px -2px 4px #00000077;
 }
 
-.slider.disabled {
-    border: 1px solid black;
-}
-
-.slider.disabled::-webkit-slider-thumb {
-    background-color: black;
+.slider:disabled {
+    opacity: 30%;
 }
 
 .darken {
