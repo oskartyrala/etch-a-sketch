@@ -129,6 +129,10 @@ button.borderless,
     border: none;
 }
 
+.lock.active {
+    background: url(../img/locked.svg) center no-repeat;
+}
+
 /* Wipe button section */
 .bottom {
     flex: 1;

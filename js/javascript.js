@@ -33,12 +33,7 @@ createGrid(horizontal, vertical);
 // Clicking the lock will update both dimension values when one is changed.
 lock.addEventListener("click", () => {
     locked = !locked;
-
-    if (locked) {
-        lock.style.background = "url(../img/locked.svg) center no-repeat"
-    } else {
-        lock.style.background = "url(../img/unlocked.svg) center no-repeat"
-    }
+    lock.classList.toggle("active");
 })
 
 // Create grid based on user input. Limit grid size to between 1x1 and 100x100.
