@@ -97,7 +97,7 @@ function createGrid(horizontal, vertical, changedDimension) {
             if (e.buttons === 1) {
                 e.preventDefault();
 
-                // If painting when redo is possible, remove all redoable states.
+                // On painting while redo is possible, remove all redoable states.
                 if (undoTracker !== 0) {
                     for (let i = 0; i < undoTracker; i++) {
                         allStateStorage.shift();
@@ -156,7 +156,6 @@ function createGrid(horizontal, vertical, changedDimension) {
 }
 
 // Store up to 50 previous states to enable undo and redo.
-
 function storePreviousState(pxIndex, pxPrevColor, pxNewColor) {
 
     // Store the previous state of each pixel only once to avoid overwriting
@@ -437,9 +436,9 @@ function markSelected(newMode) {
     document.getElementById(newMode).classList.add("selected");
 }
 
-// In erase and random mode, lock the shading toggle. They don't currently
-// interact well together. When back in standard mode, set toggle to the 
-// previous value.
+// In erase mode, lock the shading toggle. It doesn't make sense to combine 
+// erase with shading. When back in standard mode, set toggle to the 
+// previously selected value.
 slider.addEventListener("input", () => {
     shadeKeeper = slider.value;
     if (slider.value === "0") {
@@ -450,7 +449,7 @@ slider.addEventListener("input", () => {
     } else if (slider.value === "1") {
         lightenIcon.src = "./img/lighten-active.svg";
         darkenIcon.src = "./img/darken.svg";
-        
+
     } else if (slider.value === "-1") {
         lightenIcon.src = "./img/lighten.svg";
         darkenIcon.src = "./img/darken-active.svg";
@@ -458,19 +457,18 @@ slider.addEventListener("input", () => {
 })
 
 function toggleShade() {
-    if (currentMode === "standard") {
-        slider.style.pointerEvents = "";
-        slider.disabled = false;
-        slider.value = shadeKeeper;
-        darkenIcon.style.opacity = "100%"
-        lightenIcon.style.opacity = "100%"
-
-    } else {
+    if (currentMode === "erase") {
         slider.value = "0";
         slider.disabled = true;
         slider.style.pointerEvents = "none";
         darkenIcon.style.opacity = "30%";
         lightenIcon.style.opacity = "30%";
+    } else {
+        slider.style.pointerEvents = "";
+        slider.disabled = false;
+        slider.value = shadeKeeper;
+        darkenIcon.style.opacity = "100%"
+        lightenIcon.style.opacity = "100%"
     }
 }
 
@@ -568,9 +566,10 @@ function updateColor(pxIndex) {
 
     // Checking if pxIndex has been passed is necessary to make sure this 
     // function can be called by pickColor() and setMode() when in shaidng mode.
-    if (slider.value !== "0" && pxIndex) {
+    if (slider.value !== "0" && arguments.length > 0) {
         shadeColor(pixels[pxIndex]);
     }
+
 }
 
 // Get a random number to feed into currentColor in random mode.
@@ -617,7 +616,18 @@ function getRgbaFromRgb(rgbString) {
 // Increase or decrease current color's alpha value by 0.1 based on the painted
 // pixel's current alpha value.
 function shadeColor(pixel) {
-    currentColor = getRgbaFromHex(picker.value);
+
+    switch (currentMode) {
+        case "standard":
+            currentColor = getRgbaFromHex(picker.value);
+            break;
+
+        case "random":
+            currentColor = `rgb(${getRandomRgbValue()}, ${getRandomRgbValue()}, 
+            ${getRandomRgbValue()}, 1)`;
+            break;
+    }
+
 
     const pxColorString = getRgbaFromRgb(pixel.style.backgroundColor);
     let pxColorArray = pxColorString.split(", ");
@@ -630,6 +640,8 @@ function shadeColor(pixel) {
         alphaValue -= 0.1;
         pxColorArray[3] = alphaValue + ")";
     }
+
+
 
     // If the pixel is fully transparent, assume white in order to work well 
     // with the bucket's color recognition logic.
