@@ -444,6 +444,16 @@ slider.addEventListener("input", () => {
     shadeKeeper = slider.value;
     if (slider.value === "0") {
         currentColor = getRgbaFromHex(picker.value);
+        lightenIcon.src = "./img/lighten.svg";
+        darkenIcon.src = "./img/darken.svg";
+
+    } else if (slider.value === "1") {
+        lightenIcon.src = "./img/lighten-active.svg";
+        darkenIcon.src = "./img/darken.svg";
+        
+    } else if (slider.value === "-1") {
+        lightenIcon.src = "./img/lighten.svg";
+        darkenIcon.src = "./img/darken-active.svg";
     }
 })
 
