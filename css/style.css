@@ -134,13 +134,13 @@ button.borderless,
     background: url(../img/locked.svg) center no-repeat;
 }
 
-/* Wipe button section */
+/* Wipe and undo/redo section */
 .bottom {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    /* gap: 20px; */
 }
 
 .undo,
@@ -168,14 +168,13 @@ button.borderless,
 }
 
 .wipe {
-    background-color: #EBEBEB;
-    width: 120px;
-    height: 36px;
+    background: url(../img/wipe.svg) center no-repeat;;
+    width: 50px;
+    height: 50px;
+    padding: 0;
     border: none;
-    border-radius: 18px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    box-shadow: inset 2px 2px 3px #ffffff77, inset -2px -2px 3px #00000077;
+    margin-left: 30px;
+    margin-right: 35px;
 }
 
 /* Side sections */
