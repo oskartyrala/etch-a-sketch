@@ -12,6 +12,7 @@ const brushes = document.querySelectorAll("button.brush");
 const borderless = document.querySelector(".borderless");
 const undo = document.querySelector(".undo");
 const redo = document.querySelector(".redo");
+const lock = document.querySelector(".lock");
 
 let pixels = [];
 let currentMode;
@@ -22,24 +23,42 @@ let pxBorders = true;
 let allStateStorage = [];
 let previousState = [];
 let undoTracker = 0;
+let locked = false;
 
 // Set up the initial state
 setMode("standard");
 pickColor();
 createGrid(horizontal, vertical);
 
+// Clicking the lock will update both dimension values when one is changed.
+lock.addEventListener("click", () => {
+    locked = !locked;
+
+    if (locked) {
+        lock.style.background = "url(../img/locked.svg) center no-repeat"
+    } else {
+        lock.style.background = "url(../img/unlocked.svg) center no-repeat"
+    }
+})
+
 // Create grid based on user input. Limit grid size to between 1x1 and 100x100.
 // Add listeners to pixels to enable painting.
-horizontal.addEventListener("change", () => createGrid(horizontal, vertical));
-vertical.addEventListener("change", () => createGrid(horizontal, vertical));
+horizontal.addEventListener("change", (e) => createGrid(horizontal, vertical, e.target));
+vertical.addEventListener("change", (e) => createGrid(horizontal, vertical, e.target));
 
-function createGrid(horizontal, vertical) {
+function createGrid(horizontal, vertical, changedDimension) {
     pixels = [];
     grid.textContent = "";
     undoTracker = 0;
     allStateStorage = []
     toggleUndo();
     toggleRedo();
+
+    // If input fields are locked, update both to the value of the changed one.
+    if (locked) {
+        horizontal.value = changedDimension.value;
+        vertical.value = changedDimension.value;
+    }
 
     // Limit input to integers between 1 and 100
     horizontal.value = Math.round(horizontal.value);

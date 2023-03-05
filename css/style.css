@@ -10,9 +10,14 @@ body {
     height: 100vh;
     display: flex;
     align-items: center;
+    justify-content: center;
     margin: auto;
     background-color: #EBEBEB;
     color: #EBEBEB;
+}
+
+p {
+    margin: 0;
 }
 
 /* Etch-a-sketch pad */
@@ -75,12 +80,19 @@ button.borderless,
 .top {
     flex: 1;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputs {
+    display: flex;
     justify-content: center;
     align-items: center;
     gap: 8px;
 }
 
-.top > input {
+.inputs > input {
     background-color: #EBEBEB;
     border: none;
     width: 45px;
@@ -89,6 +101,32 @@ button.borderless,
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     box-shadow: inset 1px 1px 3px #00000077, inset -1px -1px 3px #ffffff77;
+}
+
+.lock-container {
+    display: flex;
+    gap: 5px;
+}
+
+.lock-container > div {
+    width: 25px;
+    height: 10px;
+    border-bottom: 1px solid #EBEBEB77;
+}
+
+.lock-left {
+    border-left: 1px solid #EBEBEB77;
+}
+
+.lock-right {
+    border-right: 1px solid #EBEBEB77;
+}
+
+.lock {
+    background: url(../img/unlocked.svg) center no-repeat;
+    height: 15px;
+    width: 15px;
+    border: none;
 }
 
 /* Wipe button section */
