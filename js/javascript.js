@@ -412,7 +412,7 @@ function removeOutline() {
 }
 
 // Wipe the board clean
-wipe.addEventListener("click", () => createGrid(horizontal, vertical));
+wipe.addEventListener("click", () => createGrid(horizontal, vertical, horizontal));
 
 // Change the current mode
 for (mode of modes) {
