@@ -6,8 +6,8 @@ const modes = document.querySelectorAll(".mode");
 const pickerContainer = document.querySelector("#standard");
 const picker = document.querySelector(".picker");
 const slider = document.querySelector(".slider");
-const lightenIcon = document.querySelector(".lighten");
-const darkenIcon = document.querySelector(".darken");
+const lighten = document.querySelector(".lighten");
+const darken = document.querySelector(".darken")
 const brushes = document.querySelectorAll("button.brush");
 const borderless = document.querySelector(".borderless");
 const undo = document.querySelector(".undo");
@@ -431,39 +431,65 @@ function markSelected(newMode) {
     document.getElementById(newMode).classList.add("selected");
 }
 
+// Update the slider either on slider input or button click. If active button
+// is clicked, turn off shading.
+
+lighten.addEventListener("click", () => {
+    if (slider.value !== "1") {
+        slider.value = "1";
+    } else {
+        slider.value = "0"
+    }
+    updateSlider();
+})
+
+darken.addEventListener("click", () => {
+    if (slider.value !== "-1") {
+        slider.value = "-1";
+    } else {
+        slider.value = "0"
+    }
+    updateSlider();
+})
+
+slider.addEventListener("input", () => {
+    updateSlider();
+})
+
+function updateSlider() {
+
+    lighten.classList.remove("active");
+    darken.classList.remove("active");
+
+    switch (slider.value) {
+        case "1":
+            lighten.classList.add("active");
+            break;
+
+        case "-1":
+            darken.classList.add("active");
+            break;
+    }
+}
+
 // In erase mode, lock the shading toggle. It doesn't make sense to combine 
 // erase with shading. When back in standard mode, set toggle to the 
 // previously selected value.
-slider.addEventListener("input", () => {
-    shadeKeeper = slider.value;
-    if (slider.value === "0") {
-        currentColor = getRgbaFromHex(picker.value);
-        lightenIcon.src = "./img/lighten.svg";
-        darkenIcon.src = "./img/darken.svg";
-
-    } else if (slider.value === "1") {
-        lightenIcon.src = "./img/lighten-active.svg";
-        darkenIcon.src = "./img/darken.svg";
-
-    } else if (slider.value === "-1") {
-        lightenIcon.src = "./img/lighten.svg";
-        darkenIcon.src = "./img/darken-active.svg";
-    }
-})
 
 function toggleShade() {
     if (currentMode === "erase") {
+        shadeKeeper = slider.value;
         slider.value = "0";
         slider.disabled = true;
+        darken.disabled = true;
+        lighten.disabled = true;
         slider.style.pointerEvents = "none";
-        darkenIcon.style.opacity = "30%";
-        lightenIcon.style.opacity = "30%";
     } else {
         slider.style.pointerEvents = "";
         slider.disabled = false;
+        darken.disabled = false;
+        lighten.disabled = false;
         slider.value = shadeKeeper;
-        darkenIcon.style.opacity = "100%"
-        lightenIcon.style.opacity = "100%"
     }
 }
 

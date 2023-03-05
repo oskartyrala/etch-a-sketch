@@ -270,9 +270,34 @@ button.borderless,
     opacity: 30%;
 }
 
+.lighten {
+    background: url(../img/lighten.svg) center no-repeat;
+    height: 25px;
+    width: 25px;
+    border: none;
+}
+
+.lighten.active {
+    background: url(../img/lighten-active.svg) center no-repeat;
+}
+
+.lighten:disabled {
+    opacity: 30%;
+}
+
 .darken {
-    width: 20px;
+    background: url(../img/darken.svg) center no-repeat;
     height: 20px;
+    width: 20px;
+    border: none;
+}
+
+.darken.active {
+    background: url(../img/darken-active.svg) center no-repeat;
+}
+
+.darken:disabled {
+    opacity: 30%;
 }
 
 /* Right side - brush size selectors */
