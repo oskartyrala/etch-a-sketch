@@ -266,8 +266,8 @@ function addBorder(pxIndex, side) {
             break;
 
         case "random":
-            borderColor = `rgb(${getRandomRgbValue()}, ${getRandomRgbValue()}, 
-            ${getRandomRgbValue()})`;
+            borderColor = `rgba(${getRandomRgbValue()}, ${getRandomRgbValue()}, 
+            ${getRandomRgbValue()}, 1)`;
             break;
     }
 
@@ -555,8 +555,8 @@ function updateColor(pxIndex) {
             break;
 
         case "random":
-            currentColor = `rgb(${getRandomRgbValue()}, ${getRandomRgbValue()}, 
-            ${getRandomRgbValue()})`;
+            currentColor = `rgba(${getRandomRgbValue()}, 
+            ${getRandomRgbValue()}, ${getRandomRgbValue()}, 1)`;
             break;
 
         case "erase":
@@ -623,8 +623,8 @@ function shadeColor(pixel) {
             break;
 
         case "random":
-            currentColor = `rgb(${getRandomRgbValue()}, ${getRandomRgbValue()}, 
-            ${getRandomRgbValue()}, 1)`;
+            currentColor = `rgba(${getRandomRgbValue()}, 
+            ${getRandomRgbValue()}, ${getRandomRgbValue()}, 1)`;
             break;
     }
 
