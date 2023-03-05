@@ -82,7 +82,7 @@ function createGrid(horizontal, vertical, changedDimension) {
             pixel.classList.add("noborders");
         }
         
-        pixel.style.width = (600 / hValue) + "px";
+        pixel.style.width = (100 / hValue) + "%";
         pixel.style.height = (600 / vValue) + "px";
 
         pixel.addEventListener("mousedown", (e) => {
