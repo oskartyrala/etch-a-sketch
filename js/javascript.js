@@ -160,7 +160,11 @@ function storePreviousState(pxIndex, pxPrevColor, pxNewColor) {
     if (!(pixels[pxIndex].classList.contains("tracked"))) {
         pixels[pxIndex].classList.add("tracked");
 
-        let pixelObject = {index: pxIndex, previousColor: pxPrevColor, newColor: pxNewColor};
+        let pixelObject = {
+            pxIndex, 
+            pxPrevColor, 
+            pxNewColor,
+        };
         previousState.push(pixelObject);
     }
 
@@ -190,7 +194,7 @@ document.addEventListener("keydown", (e) => {
 function undoLast() {
     if (undoTracker < 50) {
         for (object of allStateStorage[undoTracker]) {
-            pixels[object.index].style.backgroundColor = object.previousColor;
+            pixels[object.pxIndex].style.backgroundColor = object.pxPrevColor;
         }
         undoTracker++;
     }
@@ -217,7 +221,7 @@ function redoLast() {
 
     if (undoTracker > 0) {
         for (object of allStateStorage[undoTracker - 1]) {
-            pixels[object.index].style.backgroundColor = object.newColor;
+            pixels[object.pxIndex].style.backgroundColor = object.pxNewColor;
         }
         undoTracker--;
     }
