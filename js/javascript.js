@@ -457,7 +457,7 @@ slider.addEventListener("input", () => {
 })
 
 function updateSlider() {
-
+    shadeKeeper = slider.value;
     lighten.classList.remove("active");
     darken.classList.remove("active");
 
@@ -478,7 +478,6 @@ function updateSlider() {
 
 function toggleShade() {
     if (currentMode === "erase") {
-        shadeKeeper = slider.value;
         slider.value = "0";
         slider.disabled = true;
         darken.disabled = true;
